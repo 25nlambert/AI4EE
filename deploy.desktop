@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=<GUI Controller>
+Comment=
+Exec= python3 "/home/pi/Desktop/AI4EE/forever.py" -e
+StartupNotify=false
+Terminal=true
+hidden=false
