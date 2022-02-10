@@ -4,6 +4,7 @@ import datetime
 import sys
 import time
 import bluetooth
+import webbrowser
 
 from bluepy.btle import BTLEException
 from bluepy.sensortag import SensorTag
@@ -20,13 +21,14 @@ FREQUENCY_SECONDS = 54.0  # it takes about 4-5 seconds to obtain readings and up
 
 #======================================================================================================
 
-def rx_and_echo():
-    
-    while True:
-        data = sock.recv(buf_size)
-        print(data)
-        sock.send(data)
-
+#DON'T NEED THISS????
+#def rx_and_echo():
+#
+#    while True:
+#        data = sock.recv(buf_size)
+#        print(data)
+#        sock.send(data)
+#DON'T NEED THISS???? ^^^^^^
 
 addr = None
 
@@ -35,12 +37,12 @@ if len(sys.argv) < 2:
           "the SampleServer service...")
 else:
     #addr = sys.argv[1]
-    addr = "78:E3:6D:18:3B:7A"
+    #addr = "78:E3:6D:18:3B:7A"
     print("Searching for SampleServer on {}...".format(addr))
 
 # search for the SampleServer service
 #uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
-service_matches = bluetooth.find_service( address=addr )
+service_matches = bluetooth.find_service( name= "Sensor198" )
 
 buf_size = 1024;
 
@@ -120,37 +122,38 @@ def append_readings(worksheet, readings):
         print("Append error, logging in again")
         print(e)
         return None
-    
+
 
 def main():
-    print('Connecting to {}'.format(SENSORTAG_ADDRESS))
-    #tag = SensorTag(SENSORTAG_ADDRESS)
+    print('Connecting to {}'.format(SENSORTAG_ADDRESS)) #NEEDS REPLACING of SENSORTAG_ADDRESS
     worksheet = login_open_sheet(GDOCS_OAUTH_JSON, GDOCS_SPREADSHEET_NAME, GDOCS_WORKSHEET_NAME)
 
-    print('Logging sensor measurements to {0} every {1} seconds.'.format(GDOCS_SPREADSHEET_NAME, FREQUENCY_SECONDS))
+    print('Logging sensor measurements to {0}.'.format(GDOCS_SPREADSHEET_NAME))
     print('Press Ctrl-C to quit.')
     while True:
-        
+
         #rx_and_echo
         data = sock.recv(buf_size)
         print(data)
         sock.send(data)
-        
+
         if data == b'#':
             print("FOUND THE #")
             time.sleep(3)
-        
+
         # get sensor readings
         readings = {}
         readings["baro_temp"] = data.decode('ASCII')
         if not readings:
             print("Sensor disconnected. Please Reconnect")
-            
+
             continue
 
         # print readings
         print("Time:\t{}".format(datetime.datetime.now()))
         #print("Humidity reading:\t{}, temperature:\t{}".format(readings["humidity"], readings["humidity_temp"]))
+        if data == b'$':
+            webbrowser.open('http://74.75.114.195:3001/api/push/djfoGLlGk2?msg=OK&ping=')
         if data != b'#':
             worksheet = append_readings(worksheet, readings)
         # login if necessary.
@@ -166,4 +169,3 @@ def main():
 while True:
     if __name__ == "__main__":
         main()
- 

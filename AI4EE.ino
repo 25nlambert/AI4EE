@@ -14,7 +14,7 @@ char temp[51];
 
 void setup() {
   Serial.begin(115200);
-  SerialBT.begin("ESP32test"); //Bluetooth device name
+  SerialBT.begin("Sensor198"); //Bluetooth device name
   Serial.println("The device started, now you can pair it with bluetooth!");
   while (!Serial);
   Serial.println("MCP9808");
@@ -36,7 +36,7 @@ void setup() {
     Serial.println("Couldn't find MCP9808! Check your connections and verify the address is correct.");
     while (1);
   }
-    
+
    Serial.println("Found MCP9808!");
 
   tempsensor.setResolution(3); // sets the resolution mode of reading, the modes are defined in the table bellow:
@@ -45,7 +45,7 @@ void setup() {
   //  1    0.25°C      65 ms
   //  2    0.125°C     130 ms
   //  3    0.0625°C    250 ms
-  
+
 }
 
 void loop() {
@@ -60,8 +60,8 @@ void loop() {
   Serial.println (tempsensor.getResolution());
   float c = tempsensor.readTempC();
   float f = tempsensor.readTempF();
-  Serial.print("Temp: "); 
-  Serial.print(c, 4); Serial.print("*C\t and "); 
+  Serial.print("Temp: ");
+  Serial.print(c, 4); Serial.print("*C\t and ");
   Serial.print(f, 4); Serial.println("*F.");
 
   String csend = String(c,4);
@@ -73,18 +73,27 @@ void loop() {
     Serial.println(temp[i]);
     delay(200);
   }
-  
+
   delay(2000);
   Serial.println("Shutdown MCP9808.... ");
   tempsensor.shutdown_wake(1); // shutdown MSP9808 - power consumption ~0.1 mikro Ampere, stops temperature sampling
   Serial.println("");
   delay(200);
-  
+
   if (Serial.available()) {
     SerialBT.write(Serial.read());
   }
   if (SerialBT.available()) {
     Serial.write(SerialBT.read());
   }
-  delay(170000);
+
+
+  //Sends a '$' every ~10 seconds during the wait phase for a total of 17 seconds for keeping track of connection
+  for (int i = 0; i < 17; i++) {
+
+    SerialBT.write('$');
+    delay(10000);
+
+  }
+
 }
