@@ -42,7 +42,7 @@ else:
 
 # search for the SampleServer service
 #uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
-service_matches = bluetooth.find_service( name= "Sensor198" )
+service_matches = bluetooth.find_service( address=addr )
 
 buf_size = 1024;
 
@@ -74,7 +74,7 @@ def get_readings(tag):
         # humidity sensor
         ########readings["humidity_temp"], readings["humidity"] = tag.humidity.read()
         # barometer
-        readings["baro_temp"] = data.decode('ASCII')
+        readings["9808temp", "1080temp", "humidity"] = data.decode('ASCII')
 
         # round to 2 decimal places for all readings
         readings = {key: round(value, 2) for key, value in readings.items()}
@@ -107,10 +107,10 @@ def append_readings(worksheet, readings):
     """Append the data in the spreadsheet, including a timestamp."""
     try:
         # remove erroneous readings
-        #if readings["humidity"] < 1 or readings["humidity"] > 99:
-         #   readings["humidity"] = ''
+        if readings["humidity"] < 1 or readings["humidity"] > 99:
+            readings["humidity"] = ''
 
-        columns = ["baro_temp"]
+        columns = ["9808temp", "1080temp", "humidity"]
         now = datetime.datetime.now()
         worksheet.append_row([now.strftime("%Y-%m-%d %H:%M:%S")] + [readings.get(col, '') for col in columns])
         print("Wrote a row to {0}".format(GDOCS_SPREADSHEET_NAME))
@@ -143,7 +143,7 @@ def main():
 
         # get sensor readings
         readings = {}
-        readings["baro_temp"] = data.decode('ASCII')
+        readings["9808temp", "1080temp", "humidity"] = data.decode('ASCII')
         if not readings:
             print("Sensor disconnected. Please Reconnect")
 
