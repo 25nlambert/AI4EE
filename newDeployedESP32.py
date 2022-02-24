@@ -76,9 +76,7 @@ def append_readings(worksheet, readings):
 def get_readings(sensor):
 
     try:
-
         readings[sensor] = data.decode('ASCII')
-
 
 def main():
     print('Connecting to {}'.format(name)) #NEEDS REPLACING of SENSORTAG_ADDRESS
