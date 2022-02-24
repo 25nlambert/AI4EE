@@ -75,6 +75,7 @@ def append_readings(worksheet, readings):
         return None
 
 def get_readings(sensor):
+    readings = {}
     data = sock.recv(buf_size)
     readings[sensor] = data.decode('ASCII')
 
