@@ -62,7 +62,7 @@ def append_readings(worksheet, readings):
 
         columns = ["9808temp", "1080temp", "humidity"]
         now = datetime.datetime.now()
-        worksheet.append_row([now.strftime("%Y-%m-%d %H:%M:%S")], temp,humidity,pressure))
+        worksheet.append_row([now.strftime("%Y-%m-%d %H:%M:%S")], temp,humidity,pressure)
         print("Wrote a row to {0}".format(GDOCS_SPREADSHEET_NAME))
         return worksheet
 
