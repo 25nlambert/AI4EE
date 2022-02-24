@@ -94,11 +94,11 @@ def main():
             time.sleep(3)
 
         readings = {}
-        get_readings(9808temp)
+        get_readings("9808temp")
         time.sleep(3)
-        get_readings(1080temp)
+        get_readings("1080temp")
         time.sleep(3)
-        get_readings(humidity)
+        get_readings("humidity")
         time.sleep(3)
 
         if not readings:
