@@ -34,6 +34,7 @@ sock.connect((host, port))
 
 print("Connected")
 
+
 #GOOGLE SHEET STUFF
 def login_open_sheet(oauth_key_file, spreadsheet_name, worksheet_name):
     """Connect to Google Docs spreadsheet and return the first worksheet."""
@@ -74,9 +75,7 @@ def append_readings(worksheet, readings):
         return None
 
 def get_readings(sensor):
-
-    try:
-        readings[sensor] = data.decode('ASCII')
+    readings[sensor] = data.decode('ASCII')
 
 def main():
     print('Connecting to {}'.format(name)) #NEEDS REPLACING of SENSORTAG_ADDRESS
@@ -86,7 +85,6 @@ def main():
     print('Press Ctrl-C to quit.')
 
     while True:
-
         data = sock.recv(buf_size)
         print(data)
         sock.send(data)
