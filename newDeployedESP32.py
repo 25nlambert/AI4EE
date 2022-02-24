@@ -66,7 +66,7 @@ def append_readings(worksheet, readings):
         print("Wrote a row to {0}".format(GDOCS_SPREADSHEET_NAME))
         return worksheet
 
-        except Exception as e:
+    except Exception as e:
         # Error appending data, most likely because credentials are stale.
         # Null out the worksheet so a login is performed.
         print("Append error, logging in again")
