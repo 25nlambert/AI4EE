@@ -34,7 +34,8 @@ print(host)
 print("Connecting to \"{}\" on {}".format(name, host))
 
 sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-sock.connect((host, port))
+#sock.connect((host, port))
+sock.connect((host))
 
 print("Connected")
 
