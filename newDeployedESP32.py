@@ -19,7 +19,7 @@ service_matches = bluetooth.find_service( uuid=addr )
 buf_size = 1024;
 
 if len(service_matches) == 0:
-    print("Couldn't find the your sensor.")
+    print("Couldn't find your sensor.")
     sys.exit(0)
 
 first_match = service_matches[0]
@@ -61,7 +61,7 @@ def append_readings(worksheet, readings):
         if readings["humidity"] < 1 or readings["humidity"] > 99:
             readings["humidity"] = ''
 
-        columns = ["9808temp", "1080temp", "humidity"]
+        #columns = ["9808temp", "1080temp", "humidity"]
         now = datetime.datetime.now()
         worksheet.append_row([now.strftime("%Y-%m-%d %H:%M:%S")], temp,humidity,pressure)
         print("Wrote a row to {0}".format(GDOCS_SPREADSHEET_NAME))
@@ -79,6 +79,11 @@ def get_readings(sensor):
     data = sock.recv(buf_size)
     readings[sensor] = data.decode('ASCII')
 
+    if not readings:
+        print("Sensor disconnected. Please Reconnect")
+
+        continue
+
 def main():
     print('Connecting to {}'.format(name)) #NEEDS REPLACING of SENSORTAG_ADDRESS
     worksheet = login_open_sheet(GDOCS_OAUTH_JSON, GDOCS_SPREADSHEET_NAME, GDOCS_WORKSHEET_NAME)
@@ -93,24 +98,24 @@ def main():
 
         if data == b'#':
             print("FOUND THE #")
-            time.sleep(3)
+            time.sleep(10)
+
+        tempList = list(data)
+        tempList
+        #if tempList[i] == '#':
+        print("this is the index 0")
+        print(tempList[0])
 
         readings = {}
         get_readings("9808temp")
-        time.sleep(3)
         get_readings("1080temp")
         time.sleep(3)
         get_readings("humidity")
         time.sleep(3)
 
-        if not readings:
-            print("Sensor disconnected. Please Reconnect")
-
-            continue
-
         print("Time:\t{}".format(datetime.datetime.now()))
 
-        if data != b'#':
+        if data != b'#' and data != b'$':
             worksheet = append_readings(worksheet, readings)
 
         print()
