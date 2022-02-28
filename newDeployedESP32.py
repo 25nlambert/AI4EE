@@ -102,6 +102,7 @@ def main():
 
         tempList = list(data)
         print(tempList)
+        print("The array is " + len(tempList))
         #if tempList[i] == '#':
         print("this is the index 0")
         print(tempList[0])
