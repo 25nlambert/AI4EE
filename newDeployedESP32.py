@@ -81,7 +81,6 @@ def get_readings(sensor):
 
     if not readings:
         print("Sensor disconnected. Please Reconnect")
-
         continue
 
 def main():
