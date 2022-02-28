@@ -82,7 +82,7 @@ def get_readings(sensor):
     if not readings:
         print("Sensor disconnected. Please Reconnect")
 
-        continue
+        #continue
 
 def main():
     print('Connecting to {}'.format(name)) #NEEDS REPLACING of SENSORTAG_ADDRESS
