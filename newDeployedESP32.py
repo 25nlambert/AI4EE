@@ -23,6 +23,7 @@ if len(service_matches) == 0:
     sys.exit(0)
 
 first_match = service_matches[0]
+print(service_matches[0])
 port = first_match["port"]
 print(port)
 name = first_match["name"]
@@ -34,8 +35,7 @@ print(host)
 print("Connecting to \"{}\" on {}".format(name, host))
 
 sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-#sock.connect((host, port))
-sock.connect((host))
+sock.connect((host, port))
 
 print("Connected")
 
