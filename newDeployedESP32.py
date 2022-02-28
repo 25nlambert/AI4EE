@@ -101,7 +101,7 @@ def main():
             time.sleep(10)
 
         tempList = list(data)
-        tempList
+        print(tempList)
         #if tempList[i] == '#':
         print("this is the index 0")
         print(tempList[0])
