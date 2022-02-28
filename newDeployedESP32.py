@@ -27,7 +27,8 @@ port = first_match["port"]
 print(port)
 name = first_match["name"]
 print(name)
-host = first_match["host"]
+#host = first_match["host"]
+host = '78:E3:6D:18:59:22'
 print(host)
 
 print("Connecting to \"{}\" on {}".format(name, host))
