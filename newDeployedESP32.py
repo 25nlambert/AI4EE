@@ -24,8 +24,11 @@ if len(service_matches) == 0:
 
 first_match = service_matches[0]
 port = first_match["port"]
+print(port)
 name = first_match["name"]
+print(name)
 host = first_match["host"]
+print(host)
 
 print("Connecting to \"{}\" on {}".format(name, host))
 
