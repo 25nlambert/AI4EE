@@ -1,7 +1,9 @@
 #include "BluetoothSerial.h"
 #include <Wire.h>
 #include "Adafruit_MCP9808.h"
+#include "ClosedCube_HDC1080.h"
 
+ClosedCube_HDC1080 hdc1080;
 Adafruit_MCP9808 tempsensor = Adafruit_MCP9808();
 
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
@@ -10,10 +12,11 @@ Adafruit_MCP9808 tempsensor = Adafruit_MCP9808();
 
 BluetoothSerial SerialBT;
 
-char temp[51];
+char send[10]; //For sending data over Bluetooth
 
 void setup() {
   Serial.begin(115200);
+  hdc1080.begin(0x40); //HDC1080 Address
   SerialBT.begin("Sensor198"); //Bluetooth device name
   Serial.println("The device started, now you can pair it with bluetooth!");
   while (!Serial);
@@ -34,7 +37,7 @@ void setup() {
   //  1  1  1   0x1F
   if (!tempsensor.begin(0x18)) {
     Serial.println("Couldn't find MCP9808! Check your connections and verify the address is correct.");
-    while (1);
+    while (1); //Hangs up program if sensor cannot be found.
   }
 
    Serial.println("Found MCP9808!");
@@ -64,21 +67,50 @@ void loop() {
   Serial.print(c, 4); Serial.print("*C\t and ");
   Serial.print(f, 4); Serial.println("*F.");
 
-  String csend = String(c,4);
+  String csend = String(c,4); //Turns the temp readout float c to a string with 4 decimal places 
 
-  csend.toCharArray(temp,8);
+  csend.toCharArray(send,8); //Converts the csend array created in previous line to array temp which is 8 long
 
   for(int i = 0; i < 6; i++) {
-    SerialBT.write(temp[i]);
-    Serial.println(temp[i]);
+    SerialBT.write(send[i]);
+    Serial.println(send[i]);
     delay(200);
   }
+
+  SerialBT.write(',');
 
   delay(2000);
   Serial.println("Shutdown MCP9808.... ");
   tempsensor.shutdown_wake(1); // shutdown MSP9808 - power consumption ~0.1 mikro Ampere, stops temperature sampling
   Serial.println("");
   delay(200);
+
+  Serial.println("Wakeup HDC1080....");
+  //Humidity
+  float humidity = hdc1080.readHumidity();
+  String hsend = String(humidity,2);
+  hsend.toCharArray(send,8);
+
+  for(int i = 0; i < 5; i++) {
+    SerialBT.write(send[i]);
+    Serial.println(send[i]);
+    delay(200);
+  }
+
+  SerialBT.write(',');
+  
+  //temp
+  float backupTemp = hdc1080.readTemperature();
+  String backupSend = String(backupTemp,2);
+  backupSend.toCharArray(send,8);
+
+  for(int i = 0; i < 5; i++) {
+    SerialBT.write(send[i]);
+    Serial.println(send[i]);
+    delay(200);
+  }
+
+  SerialBT.write(',');
 
   if (Serial.available()) {
     SerialBT.write(Serial.read());
@@ -97,3 +129,17 @@ void loop() {
   }
 
 }
+
+/*HDC 1080 function
+void printTandRH(HDC1080_MeasurementResolution humidity, HDC1080_MeasurementResolution temperature) {
+  hdc1080.setResolution(humidity, temperature);
+
+  HDC1080_Registers reg = hdc1080.readRegister();
+
+  Serial.print("T=");
+  Serial.print(hdc1080.readTemperature());
+  Serial.print("C, RH=");
+  Serial.print(hdc1080.readHumidity());
+  Serial.println("%");
+}
+*/
