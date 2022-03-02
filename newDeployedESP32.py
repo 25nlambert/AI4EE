@@ -110,14 +110,15 @@ def main():
             time.sleep(10)
 
         tempList = list(data)
-        print(tempList)
+        print(type(tempList))
+
         #print('The array is ',len(tempList))
         #if tempList[i] == '#':
         #print("this is the index 0")
         #print(tempList[0])
 
         readings = {}
-        readings["9808temp", "1080temp", "humidity"] = data.decode('ASCII')
+        #readings["9808temp", "1080temp", "humidity"] = data.decode('ASCII')
         worksheet = append_readings(worksheet, readings)
         #get_readings("9808temp")
         #time.sleep(3)
