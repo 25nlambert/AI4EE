@@ -24,13 +24,13 @@ if len(service_matches) == 0:
 
 first_match = service_matches[0]
 print(service_matches[0])
-port = first_match["port"]
-#port = '1'
+#port = first_match["port"]
+port = '1'
 print(port)
 name = first_match["name"]
 print(name)
-host = first_match["host"]
-#host = '78:E3:6D:18:59:22'
+#host = first_match["host"]
+host = '78:E3:6D:18:59:22'
 print(host)
 
 print("Connecting to \"{}\" on {}".format(name, host))
@@ -68,9 +68,10 @@ def append_readings(worksheet, readings):
         if readings["humidity"] < 1 or readings["humidity"] > 99:
             readings["humidity"] = ''
 
-        #columns = ["9808temp", "1080temp", "humidity"]
+        columns = ["9808temp", "1080temp", "humidity"]
         now = datetime.datetime.now()
-        worksheet.append_row([now.strftime("%Y-%m-%d %H:%M:%S")], temp,humidity,pressure)
+        #worksheet.append_row([now.strftime("%Y-%m-%d %H:%M:%S")], temp,humidity,pressure)
+        worksheet.append_row([now.strftime("%Y-%m-%d %H:%M:%S")] + [readings.get(col, '') for col in columns])
         print("Wrote a row to {0}".format(GDOCS_SPREADSHEET_NAME))
         return worksheet
 
@@ -110,13 +111,13 @@ def main():
 
         tempList = list(data)
         print(tempList)
-        print('The array is ',len(tempList))
+        #print('The array is ',len(tempList))
         #if tempList[i] == '#':
-        print("this is the index 0")
-        print(tempList[0])
+        #print("this is the index 0")
+        #print(tempList[0])
 
         readings = {}
-
+        readings["9808temp", "1080temp", "humidity"] = data.decode('ASCII')
         worksheet = append_readings(worksheet, readings)
         #get_readings("9808temp")
         #time.sleep(3)
