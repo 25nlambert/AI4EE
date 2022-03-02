@@ -24,7 +24,8 @@ if len(service_matches) == 0:
 
 first_match = service_matches[0]
 print(service_matches[0])
-port = first_match["port"]
+#port = first_match["port"]
+port = '1'
 print(port)
 name = first_match["name"]
 print(name)
@@ -82,7 +83,8 @@ def append_readings(worksheet, readings):
 def get_readings(sensor):
     readings = {}
     data = sock.recv(buf_size)
-    readings[sensor] = data.decode('ASCII')
+    #readings[sensor] = data.decode('ASCII')
+    readings["9808temp", "1080temp", "humidity"] = data.decode('ASCII')
 
     if not readings:
         print("Sensor disconnected. Please Reconnect")
@@ -113,6 +115,8 @@ def main():
         print(tempList[0])
 
         readings = {}
+
+        worksheet = append_readings(worksheet, readings)
         #get_readings("9808temp")
         #time.sleep(3)
         #get_readings("1080temp")
@@ -122,13 +126,8 @@ def main():
 
         print("Time:\t{}".format(datetime.datetime.now()))
 
-        if data != b'#' and data != b'$':
-            worksheet = append_readings(worksheet, readings)
-
         print()
         print("loop")
-
-
 
 
 while True:
