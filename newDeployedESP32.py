@@ -2,6 +2,7 @@ import datetime
 import sys
 import time
 import bluetooth
+import requests
 
 from bluepy.btle import BTLEException
 from bluepy.sensortag import SensorTag
@@ -13,6 +14,8 @@ GDOCS_SPREADSHEET_NAME = "AI4EE"
 GDOCS_WORKSHEET_NAME = "data"
 
 addr = '00001101-0000-1000-8000-00805f9b34fb'
+
+URL = "http://74.75.114.195:3001/api/push/djfoGLlGk2?msg=OK&ping="
 
 service_matches = bluetooth.find_service( uuid=addr )
 
@@ -108,6 +111,9 @@ def main():
         if data == b'#':
             print("FOUND THE #")
             time.sleep(10)
+
+        if data == b'$':
+            page = requests.url(URL)
 
         tempList = list(data)
         print(type(tempList))
