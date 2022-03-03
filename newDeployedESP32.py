@@ -113,7 +113,7 @@ def main():
             time.sleep(10)
 
         if data == b'$':
-            page = requests.url(URL)
+            page = requests.get(URL)
 
         tempList = list(data)
         print(type(tempList))
