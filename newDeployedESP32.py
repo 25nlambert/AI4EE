@@ -117,7 +117,7 @@ def main():
 
         tempList = list(data)
         print(type(tempList))
-        print(templist)
+        print(tempList)
 
         #print('The array is ',len(tempList))
         #if tempList[i] == '#':
