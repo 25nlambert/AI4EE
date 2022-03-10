@@ -124,7 +124,7 @@ def main():
         #print("this is the index 0")
         #print(tempList[0])
 
-        readings = {"9808temp":, "1080temp":0, "humidity":0}
+        readings = {"9808temp":0, "1080temp":0, "humidity":0}
         #readings["9808temp", "1080temp", "humidity"] = data.decode('ASCII')
         worksheet = append_readings(worksheet, readings)
         #get_readings("9808temp")
