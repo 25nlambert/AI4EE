@@ -97,7 +97,7 @@ def get_readings(sensor):
         #continue
 
 def main():
-    sendList = []
+
     print('Connecting to {}'.format(name)) #NEEDS REPLACING of SENSORTAG_ADDRESS
     worksheet = login_open_sheet(GDOCS_OAUTH_JSON, GDOCS_SPREADSHEET_NAME, GDOCS_WORKSHEET_NAME)
 
@@ -105,6 +105,7 @@ def main():
     print('Press Ctrl-C to quit.')
 
     while True:
+        sendList = []
         data = sock.recv(buf_size)
         print(data)
         sock.send(data)
