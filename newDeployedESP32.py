@@ -131,7 +131,8 @@ def main():
 
         readings = {"9808temp":0, "1080temp":0, "humidity":0}
         #readings["9808temp", "1080temp", "humidity"] = data.decode('ASCII')
-        worksheet = append_readings(worksheet, readings)
+        if tempList[1] != '36'
+            worksheet = append_readings(worksheet, readings)
         #get_readings("9808temp")
         #time.sleep(3)
         #get_readings("1080temp")
