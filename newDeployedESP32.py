@@ -119,6 +119,10 @@ def main():
         print(type(tempList))
         print(tempList)
 
+        for x in tempList:
+            tempList[x] = chr(x)
+
+
         #print('The array is ',len(tempList))
         #if tempList[i] == '#':
         #print("this is the index 0")
