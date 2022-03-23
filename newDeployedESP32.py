@@ -126,6 +126,7 @@ def main():
             sendList[0 : 6] = [''.join(sendList[0 : 6])]
             sendList[7 : 11] = [''.join(sendList[7 : 11])]
             sendList[13 : 17] = [''.join(sendList[13 : 17])]
+        print(type(sendList))
         print(sendList)
 
 
