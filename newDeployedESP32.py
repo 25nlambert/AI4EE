@@ -123,9 +123,12 @@ def main():
 
         for x in tempList:
             sendList.extend(chr(x))
-            sendList[0 : 6] = [''.join(sendList[0 : 6])]
-            sendList[7 : 11] = [''.join(sendList[7 : 11])]
-            sendList[13 : 17] = [''.join(sendList[13 : 17])]
+            sendList[0] = [''.join(sendList[0 : 6])]
+            sendList[1] = [''.join(sendList[7 : 12])]
+            sendList[2] = [''.join(sendList[13 : 18])]
+            #sendList[0 : 6] = [''.join(sendList[0 : 6])]
+            #sendList[7 : 11] = [''.join(sendList[7 : 11])]
+            #sendList[13 : 17] = [''.join(sendList[13 : 17])]
         print(type(sendList))
         print(sendList)
 
