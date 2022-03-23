@@ -122,6 +122,11 @@ def main():
 
         for x in tempList:
             sendList.append(chr(x))
+            sendList[0 : 6] = [''.join(sendList[0 : 6])]
+            sendList[7 : 11] = [''.join(sendList[7 : 11])]
+            sendList[13 : 17] = [''.join(sendList[13 : 17])]
+        print(sendList)
+
 
 
         #print('The array is ',len(tempList))
@@ -131,8 +136,7 @@ def main():
 
         readings = {"9808temp":0, "1080temp":0, "humidity":0}
         #readings["9808temp", "1080temp", "humidity"] = data.decode('ASCII')
-        if sendList[1] != '$':
-            worksheet = append_readings(worksheet, readings)
+        worksheet = append_readings(worksheet, readings)
         #get_readings("9808temp")
         #time.sleep(3)
         #get_readings("1080temp")
