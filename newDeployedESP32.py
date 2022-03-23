@@ -120,7 +120,7 @@ def main():
         print(tempList)
 
         for x in tempList:
-            tempList[x] = chr(x)
+            sendList[x] = chr(x)
 
 
         #print('The array is ',len(tempList))
