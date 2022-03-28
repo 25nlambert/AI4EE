@@ -110,6 +110,8 @@ def main():
     "1080temp": 0
     }
 
+    fixList = 0
+
     while True:
         sendList = []
         data = sock.recv(buf_size)
