@@ -71,7 +71,7 @@ def append_readings(worksheet, readings):
         if readings["humidity"] < 1 or readings["humidity"] > 99:
             readings["humidity"] = ''
 
-        columns = ["9808temp", "1080temp", "humidity"]
+        columns = ["9808temp", "humidity", "1080temp"]
         now = datetime.datetime.now()
         #worksheet.append_row([now.strftime("%Y-%m-%d %H:%M:%S")], temp,humidity,pressure)
         worksheet.append_row([now.strftime("%Y-%m-%d %H:%M:%S")] + [readings.get(col, '') for col in columns])
@@ -104,6 +104,12 @@ def main():
     print('Logging sensor measurements to {0}.'.format(GDOCS_SPREADSHEET_NAME))
     print('Press Ctrl-C to quit.')
 
+    sendDict = {
+    "9808temp": 0,
+    "humidity": 0,
+    "1080temp": 0
+    }
+
     while True:
         sendList = []
         data = sock.recv(buf_size)
@@ -134,16 +140,18 @@ def main():
         print(type(sendList))
         print(sendList)
 
-
+        sendDict["9808temp"] = sendList[0]
+        sendDict["humidity"] = sendList[2]
+        sendDict["1080temp"] = sendList[4]
 
         #print('The array is ',len(tempList))
         #if tempList[i] == '#':
         #print("this is the index 0")
         #print(tempList[0])
 
-        readings = {"9808temp":0, "1080temp":0, "humidity":0}
+        #readings = {"9808temp":0, "1080temp":0, "humidity":0}
         #readings["9808temp", "1080temp", "humidity"] = data.decode('ASCII')
-        worksheet = append_readings(worksheet, readings)
+        worksheet = append_readings(worksheet, sendDict)
         #get_readings("9808temp")
         #time.sleep(3)
         #get_readings("1080temp")
