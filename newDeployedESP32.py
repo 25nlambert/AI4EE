@@ -111,21 +111,13 @@ def main():
     }
 
     fixList = 0
-    sendList = []
 
     while True:
-
+        sendList = []
         data = sock.recv(buf_size)
         print(data)
         print(type(data))
         sock.send(data)
-
-        if fixList == 1:
-            sendDict["9808temp"] = sendList[0]
-            sendDict["humidity"] = sendList[2]
-            sendDict["1080temp"] = sendList[4]
-            fixList = 0
-            worksheet = append_readings(worksheet, sendDict)
 
         if data == b'#':
             print("FOUND THE #")
@@ -151,7 +143,15 @@ def main():
         print(len(sendList))
         print(sendList)
 
+        if fixList == 2:
+            sendDict["9808temp"] = sendList[0]
+            sendDict["humidity"] = sendList[2]
+            sendDict["1080temp"] = sendList[4]
+            fixList = 0
+            worksheet = append_readings(worksheet, sendDict)
 
+        if fixList == 1:
+            fixList = 2
 
         #print('The array is ',len(tempList))
         #if tempList[i] == '#':
