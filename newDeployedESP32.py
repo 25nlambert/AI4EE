@@ -120,6 +120,7 @@ def main():
         if data == b'#':
             print("FOUND THE #")
             time.sleep(10)
+            fixList = 1
 
         if data == b'$':
             page = requests.get(URL)
@@ -140,9 +141,11 @@ def main():
         print(type(sendList))
         print(sendList)
 
-        sendDict["9808temp"] = sendList[0]
-        sendDict["humidity"] = sendList[2]
-        sendDict["1080temp"] = sendList[4]
+        if fixList == 1:
+            sendDict["9808temp"] = sendList[0]
+            sendDict["humidity"] = sendList[2]
+            sendDict["1080temp"] = sendList[4]
+            fixList = 0
 
         #print('The array is ',len(tempList))
         #if tempList[i] == '#':
