@@ -130,7 +130,7 @@ def main():
             #sendList[13 : 17] = [''.join(sendList[13 : 17])]
         sendList[0:6] = [''.join(sendList[0 : 6])]
         sendList[2:7] = [''.join(sendList[2 : 7])]
-        sendList[5:9] = [''.join(sendList[5 : 9])]
+        sendList[4:9] = [''.join(sendList[4 : 9])]
         print(type(sendList))
         print(sendList)
 
