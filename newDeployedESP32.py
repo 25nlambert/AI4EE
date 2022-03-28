@@ -11,7 +11,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 GDOCS_OAUTH_JSON = "ai4ee-334323-5c661ee33327.json"
 GDOCS_SPREADSHEET_NAME = "AI4EE"
-GDOCS_WORKSHEET_NAME = "data"
+GDOCS_WORKSHEET_NAME = "finaldata"
 
 addr = '00001101-0000-1000-8000-00805f9b34fb'
 
