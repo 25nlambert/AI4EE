@@ -108,6 +108,7 @@ def main():
         sendList = []
         data = sock.recv(buf_size)
         print(data)
+        print(type(data))
         sock.send(data)
 
         if data == b'#':
