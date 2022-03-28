@@ -140,7 +140,7 @@ def main():
         sendList[0:6] = [''.join(sendList[0 : 6])]
         sendList[2:7] = [''.join(sendList[2 : 7])]
         sendList[4:9] = [''.join(sendList[4 : 9])]
-        print(type(sendList))
+        print(len(sendList))
         print(sendList)
 
         if fixList == 1:
@@ -148,6 +148,7 @@ def main():
             sendDict["humidity"] = sendList[2]
             sendDict["1080temp"] = sendList[4]
             fixList = 0
+            worksheet = append_readings(worksheet, sendDict)
 
         #print('The array is ',len(tempList))
         #if tempList[i] == '#':
@@ -156,7 +157,7 @@ def main():
 
         #readings = {"9808temp":0, "1080temp":0, "humidity":0}
         #readings["9808temp", "1080temp", "humidity"] = data.decode('ASCII')
-        worksheet = append_readings(worksheet, sendDict)
+
         #get_readings("9808temp")
         #time.sleep(3)
         #get_readings("1080temp")
