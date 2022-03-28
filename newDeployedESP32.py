@@ -68,8 +68,8 @@ def append_readings(worksheet, readings):
     """Append the data in the spreadsheet, including a timestamp."""
     try:
         # remove erroneous readings
-        if readings["humidity"] < 1 or readings["humidity"] > 99:
-            readings["humidity"] = ''
+        #if readings["humidity"] < 1 or readings["humidity"] > 99:
+        #    readings["humidity"] = ''
 
         columns = ["9808temp", "humidity", "1080temp"]
         now = datetime.datetime.now()
