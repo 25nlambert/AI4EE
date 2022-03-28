@@ -144,9 +144,9 @@ def main():
         print(sendList)
 
         if fixList == 1:
-            sendDict["9808temp"] = sendList[0]
-            sendDict["humidity"] = sendList[2]
-            sendDict["1080temp"] = sendList[4]
+            #sendDict["9808temp"] = sendList[0]
+            #sendDict["humidity"] = sendList[2]
+            #sendDict["1080temp"] = sendList[4]
             fixList = 0
             worksheet = append_readings(worksheet, sendDict)
 
