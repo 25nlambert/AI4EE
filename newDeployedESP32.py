@@ -111,9 +111,10 @@ def main():
     }
 
     fixList = 0
+    sendList = []
 
     while True:
-        sendList = []
+
         data = sock.recv(buf_size)
         print(data)
         print(type(data))
