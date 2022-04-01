@@ -148,6 +148,8 @@ def main():
             sendDict["humidity"] = sendList[2]
             sendDict["1080temp"] = sendList[4]
             fixList = 0
+            print("===========SENDLIST===========")
+            print(sendList)
             worksheet = append_readings(worksheet, sendDict)
 
         if fixList == 1:
